@@ -1,14 +1,26 @@
 /* eslint-disable prettier/prettier */
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
+import { CarsEntity } from './cars.entity';
 
-@Entity()
+@Entity('categories')
 export class CategoriesEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  categoryName: string;
 
   @Column()
   description: string;
+
+  @OneToMany(() => CarsEntity, (cars) => cars.category)
+  @JoinColumn()
+  cars: CarsEntity[];
 }
